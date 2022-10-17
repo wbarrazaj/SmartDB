@@ -22,7 +22,6 @@ class Indicadores():
       
     def valida_exist_tabla(self, tabla):
         conn=self.conn
-        #print(conn)
         esquema='SmartDB'
         cons="select count(*) from information_schema.tables where table_name = '" + tabla + "' and  Table_SCHEMA= '" + esquema +  "';"         
         r = conn.ejecutar_query(cons)
@@ -80,10 +79,7 @@ class Indicadores():
         conn=self.conn
         table = self.Tabla
         query = self.insert 
-        #print(query)
-        #print(Datos)
         conn.ejecutar_query_data(query, Datos)
-        #self.conn.commit()
 
     def insert_tbl_Estado_BDD (self, id, Motor,Servidor,BDD, estado):
         fecha_ejecucion= datetime.datetime.now()
