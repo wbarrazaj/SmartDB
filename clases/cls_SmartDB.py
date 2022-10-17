@@ -2,6 +2,7 @@ from readline import insert_text
 from modulos.funciones import substr,  printlog 
 import datetime
 import sqlite3
+import pymysql
 
 
 class Indicadores():
@@ -17,14 +18,17 @@ class Indicadores():
             self.conn=conn
             self.insert = ''
             self.cant_campos = 0
-            self.__lee_indicadores()
+            self.lee_indicadores()
 
       
     def valida_exist_tabla(self, tabla):
-        cons="select count(*) FROM sqlite_master where type='table' and tbl_name='"+ tabla+"';"
-        cur = self.conn.cursor() 
-        resp = cur.execute(cons)
-        r=resp.fetchone()
+        conn=self.conn
+        #print(conn)
+        esquema='SmartDB'
+        cons="select count(*) from information_schema.tables where table_name = '" + tabla + "' and  Table_SCHEMA= '" + esquema +  "';"         
+        r = conn.ejecutar_query(cons)
+
+        print(r)
 
         if r[0]==1:
             return 1
@@ -32,36 +36,42 @@ class Indicadores():
             return 0
 
     def creaTabla (self, tabla):
+        conn=self.conn
         id_= str(self.Id)
-        cur = self.conn.cursor() 
-        consult= "select Estructura from Tbl_Indicadores where Id =" + id_ + " and Motor ='" + self.Motor + "';"
-        resp = cur.execute(consult)
-        a=resp.fetchone() 
-        print(consult)
+        cons= "select Estructura from Tbl_Indicadores where Id =" + id_ + " and Motor ='" + self.Motor + "';"
+        a=conn.ejecutar_query(cons)
         cre_table=a[0]+ ';'
         print(cre_table)
-        cur.execute(cre_table)
+        a=conn.ejecutar_query(cre_table)
 
-    def __lee_indicadores (self):
+    def lee_indicadores (self):
         try:
+            conn=self.conn
             id_= str(self.Id)
-            cur = self.conn.cursor() 
-            consult= "select Id, Motor, Tipo, Descripcion, Consulta, Fecha, Tabla,  Estructura from Tbl_Indicadores where Id =" + id_ + " and Motor ='" + self.Motor + "';"
-            resp = cur.execute(consult)
-            self.Id, self.Motor, self.Tipo, self.Descripcion, self.Consulta, self.Fecha, self.Tabla , self.Estructura = resp.fetchone()
+            consult= "select Id_Indicadores, Motor, Tipo, Descripcion, Consulta, Fecha, Tabla,  Estructura from Tbl_Indicadores where Id_Indicadores =" + id_ + " and Motor ='" + self.Motor + "';"
+            print(consult)
+            resp_ = conn.ejecutar_query(consult)
+            self.Id=resp_[0]
+            #print(self.Id)
+            #self.Id, self.Motor, self.Tipo, self.Descripcion, self.Consulta, self.Fecha, self.Tabla , self.Estructura = resp
             self.insert=self.__genera_sql_insert(self.Tabla)
-        except :
-            pass
+            #print(self.Id, self.Motor, self.Tipo, self.Descripcion, self.Consulta, self.Fecha, self.Tabla , self.Estructura,self.insert )
+        except ValueError as err :
+            print(err)
         
     def __genera_sql_insert(self, tabla):
-        cur = self.conn.cursor() 
-        consulta="SELECT p.name AS col_name FROM sqlite_master m LEFT OUTER JOIN pragma_table_info((m.name)) p ON m.name <> p.name WHERE m.type = 'table' and m.name = '" + tabla + "' ORDER BY p.cid ;"
-        resp = cur.execute(consulta)
+        conn=self.conn
+        esquema='SmartDB'
+        
+        consulta="select column_name as column_name from information_schema.columns where table_name = '" + tabla + "' and Table_SCHEMA= '" + esquema + "' order by ordinal_position;"
+
+        resp = conn.ejecutar_query(consulta)
+
         campos = ''
         campos2 = ''
         count = 0 
 
-        for a in resp.fetchall():
+        for a in resp:
             campos = campos + a[0] + ','
             campos2 = campos2 + '?,'
             count=count+1

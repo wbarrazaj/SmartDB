@@ -1,6 +1,6 @@
 import pyodbc 
 import pymysql
-import psycopg2
+#import psycopg
 from modulos.funciones import substr,  printlog 
 
 
@@ -47,7 +47,7 @@ class BaseDD():
 
 
         elif self.Motor=='Postgres':
-            conn = psycopg2.connect(
+            conn = pymysql.connect(
                                     user=self.UsuarioDB,
                                     password=self.PasswordDB,
                                     host=self.ServidorDB,
@@ -70,8 +70,8 @@ class BaseDD():
                 cursor.execute(query)
                 resultado=cursor.fetchall()
                 #print(">>>>>>>>>>> "+resultado)
-                conn.commit()
-                conn.close()
+                #conn.commit()
+                #conn.close()
             elif self.Motor == 'Postgres':
                 cursor = conn.cursor()
                 cursor.execute(query)
@@ -87,6 +87,7 @@ class BaseDD():
                     printlog("Error: " + str(err.args[0]) + " --> Can't connect to MySQL server" )    
                 else :
                     printlog("Error: " + str(err.args[0]) + "--> Error to MySQL server" )
+                    print(err.args[1])
 
                 self.Estado = 1 
                 resultado = ''
