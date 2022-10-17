@@ -15,6 +15,7 @@ SDB_BDD='SmartDB'
 SDB_Puerto='3306'
 SDB_Motor= 'MariaDB'
 
+printlog ("Inicio .-- ")
 
 dbConn_SmartDB=BaseDD(servidor=SDB_Servidor, usuario=SDB_Usuario, clave=SDB_Clave, db=SDB_BDD, puerto=SDB_Puerto, drver='', motor=SDB_Motor) 
 
@@ -37,7 +38,7 @@ for aaa in resultado_Servidores:
     BDD = aaa[5]
     Puerto = aaa[6]
 
-    print(Motor,Id_Servidor,Servidor,Usuario,Clave,BDD,Puerto)
+    #print(Motor,Id_Servidor,Servidor,Usuario,Clave,BDD,Puerto)
 
     consulta_Indicadores="select Id_Indicadores, Motor, Tipo, Consulta, Fecha, Tabla, Estructura from Tbl_Indicadores where Motor='MariaDB';"
     resultado_Indicadores=dbConn_SmartDB.ejecutar_query(consulta_Indicadores) 
@@ -46,25 +47,30 @@ for aaa in resultado_Servidores:
     #dbConn_SmartDB=BaseDD(servidor=SDB_Servidor, usuario=SDB_Usuario, clave=SDB_Clave, db=SDB_BDD, puerto=SDB_Puerto, drver='', motor=SDB_Motor) 
     dbConn=BaseDD(servidor=Servidor, usuario=Usuario, clave=Clave, db=BDD, puerto=Puerto, drver='', motor=Motor)
 
+    printlog('Servidor-------> ' + Servidor)
+
     for a in resultado_Indicadores :
-        print(a[0])
-        #print(a[3])
+
         resultado=dbConn.ejecutar_query(a[3])
         id = a[0] 
+        #print("ID : " + str(id))
         fecha_ejecucion = datetime.datetime.now()
-        printlog ("Tabla--->"+ a[5])
+        printlog ("\tTabla--->"+ a[5])
         Ind_=Indicadores(Id=id, Motor=dbConn.Motor,conn=dbConn_SmartDB)
         #print(resultado)    
-    
+        #print(Ind_.insert)
         try:
             for exec_cons in resultado :
-                Dato = [Ind_.Id, Ind_.Motor,Servidor,BDD,fecha_ejecucion ]
+                Dato = [Ind_.Id, Ind_.Motor,Id_Servidor,BDD,fecha_ejecucion]
+                #print(Ind_.insert+str(Dato))
                 for exec_y in range(Ind_.cant_campos-5):
-                    Dato.append(str(exec_cons[exec_y]))
-                #Ind_.insert_tbl(Dato,Ind_.Id)
+                    Dato.append(exec_cons[exec_y])
+                #print('Aqui')
                 #print(Dato)
+                Ind_.insert_tbl(Dato,Ind_.Id)
+            
+                
         except ValueError as er:
                 printlog (er)
-
 
 printlog ("Termino .-- ")

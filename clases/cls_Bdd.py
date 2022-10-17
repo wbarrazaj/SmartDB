@@ -94,6 +94,48 @@ class BaseDD():
 
         return resultado
 
+
+    def ejecutar_query_data(self, query, data):
+        try:
+            conn=self.conectar()
+            #print(self.Motor)
+            if self.Motor == 'Sybase':
+                cursor = conn.cursor()
+                cursor.execute(query)
+                conn.commit()
+                conn.close()
+            elif self.Motor in ('Mysql','MariaDB'):
+                cursor = conn.cursor()
+                cursor.execute(query,data)
+                resultado=cursor.fetchall()
+
+                #print(">>>>>>>>>>> "+resultado)
+                conn.commit()
+                conn.close()
+            elif self.Motor == 'Postgres':
+                cursor = conn.cursor()
+                cursor.execute(query)
+                record = cursor.fetchone()
+                print("You are connected to - ", record, "\n")
+                conn.commit()
+                conn.close()
+            else:
+                printlog("Otra Motor")
+        except pymysql.err.OperationalError as err:
+                printlog("Algo salio Mal : Servidor ---> " + self.ServidorDB + " BDD --->" + self.SchemaDBD)
+                if err.args[0] == 2003:
+                    printlog("Error: " + str(err.args[0]) + " --> Can't connect to MySQL server" )    
+                else :
+                    printlog("Error: " + str(err.args[0]) + "--> Error to MySQL server" )
+                    print(err.args[1])
+
+                self.Estado = 1 
+                resultado = ''
+
+        return resultado
+
+
+
     def chk_default(self):
   
         try:
