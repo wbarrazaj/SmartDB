@@ -1,4 +1,4 @@
-import mysql
+import mysql.connector
 
 conn = mysql.connector.connect(
    user='monitor', password='Emilita01', host='Ares', database='SmartDB')
