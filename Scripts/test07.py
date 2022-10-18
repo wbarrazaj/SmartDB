@@ -9,6 +9,7 @@ cursor = conn.cursor()
 # Preparing SQL query to INSERT a record into the database.
 sql = "select * from Tbl_Servidor;"
 
+
 try:
    # Executing the SQL command
    cursor.execute(sql)
