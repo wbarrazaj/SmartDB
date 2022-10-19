@@ -23,14 +23,14 @@ consulta_Servidores="select Motor, Id_Servidor, fn_Servidor(ID_Servidor) as Serv
 
 resultado_Servidores=dbConn_SmartDB.ejecutar_query(consulta_Servidores)
 
-for aaa in resultado_Servidores:
-    Motor = aaa[0]
-    Id_Servidor = aaa[1]
-    Servidor = aaa[2]
-    Usuario = aaa[3]
-    Clave = aaa[4]
-    BDD = aaa[5]
-    Puerto = aaa[6]
+for ListaServer in resultado_Servidores:
+    Motor = ListaServer[0]
+    Id_Servidor = ListaServer[1]
+    Servidor = ListaServer[2]
+    Usuario = ListaServer[3]
+    Clave = ListaServer[4]
+    BDD = ListaServer[5]
+    Puerto = ListaServer[6]
 
 
     consulta_Indicadores="select Id_Indicadores, Motor, Tipo, Consulta, Fecha, Tabla, Estructura from Tbl_Indicadores where Motor='MariaDB';"
