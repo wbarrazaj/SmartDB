@@ -42,28 +42,34 @@ for ListaServer in resultado_Servidores:
 
     printlog('Servidor-------> ' + Servidor)
 
-   #Status=Indicadores(Id=0, Motor=dbConn.Motor,conn=dbConn_SmartDB)
+    Status=Indicadores(Id=0, Motor=dbConn.Motor,conn=dbConn_SmartDB)
 
-    #dbConn.ejecutar_query('select 1 ;')
+    dbConn.ejecutar_query('select 1;')
     
-    print(dbConn.Estado)
+    #print(dbConn.Estado)
 
-    for a in resultado_Indicadores :
+    if dbConn.Estado==0:
+        printlog ('Base de Datos UP :  Servidor ---> ' + dbConn.ServidorDB )
+        Status.insert_tbl_Estado_BDD(0, Motor,Id_Servidor,BDD, 'UP')
+        printlog ("\tTabla--->"+ "tbl_mdb_p000")
+        for a in resultado_Indicadores :
+            resultado=dbConn.ejecutar_query(a[3])
+            id = a[0] 
+            fecha_ejecucion = datetime.datetime.now()
+            printlog ("\tTabla--->"+ a[5])
+            Ind_=Indicadores(Id=id, Motor=dbConn.Motor,conn=dbConn_SmartDB)
+            try:
+                for exec_cons in resultado :
+                    Dato = [Ind_.Id, Ind_.Motor,Id_Servidor,BDD,fecha_ejecucion]
+                    for exec_y in range(Ind_.cant_campos-5):
+                        Dato.append(exec_cons[exec_y])
+                    Ind_.insert_tbl(Dato,Ind_.Id)
+            except ValueError as er:
+                    printlog (er)
+    else : 
+        printlog ('Base de Datos Down :  Servidor ---> ' + dbConn.ServidorDB )
+        Status.insert_tbl_Estado_BDD(0, Motor,Id_Servidor,BDD, 'DOWN')
+        printlog ("\tTabla--->"+ "tbl_mdb_p000")
 
-        resultado=dbConn.ejecutar_query(a[3])
-        id = a[0] 
-        fecha_ejecucion = datetime.datetime.now()
-        printlog ("\tTabla--->"+ a[5])
-        Ind_=Indicadores(Id=id, Motor=dbConn.Motor,conn=dbConn_SmartDB)
-        try:
-            for exec_cons in resultado :
-                Dato = [Ind_.Id, Ind_.Motor,Id_Servidor,BDD,fecha_ejecucion]
-                for exec_y in range(Ind_.cant_campos-5):
-                    Dato.append(exec_cons[exec_y])
-                Ind_.insert_tbl(Dato,Ind_.Id)
-            
-                
-        except ValueError as er:
-                printlog (er)
-    
+
 printlog ("Termino .-- ")
