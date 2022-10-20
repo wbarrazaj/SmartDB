@@ -42,7 +42,7 @@ for ListaServer in resultado_Servidores:
 
     printlog('Servidor-------> ' + Servidor)
 
-    Status=Indicadores(Id=0, Motor=dbConn.Motor,conn=dbConn_SmartDB)
+   #Status=Indicadores(Id=0, Motor=dbConn.Motor,conn=dbConn_SmartDB)
 
     #dbConn.ejecutar_query('select 1 ;')
     
