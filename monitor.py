@@ -46,26 +46,24 @@ for ListaServer in resultado_Servidores:
 
     if dbConn.Estado==1:
         printlog ("Base de Datos Down :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
+        for a in resultado_Indicadores :
+
+            resultado=dbConn.ejecutar_query(a[3])
+            id = a[0] 
+            fecha_ejecucion = datetime.datetime.now()
+            printlog ("\tTabla--->"+ a[5])
+            Ind_=Indicadores(Id=id, Motor=dbConn.Motor,conn=dbConn_SmartDB)
+            try:
+                for exec_cons in resultado :
+                    Dato = [Ind_.Id, Ind_.Motor,Id_Servidor,BDD,fecha_ejecucion]
+                    for exec_y in range(Ind_.cant_campos-5):
+                        Dato.append(exec_cons[exec_y])
+                    Ind_.insert_tbl(Dato,Ind_.Id)
+                
+                    
+            except ValueError as er:
+                    printlog (er)
     else :
         printlog ("Base de Datos UP :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
-
-
-    for a in resultado_Indicadores :
-
-        resultado=dbConn.ejecutar_query(a[3])
-        id = a[0] 
-        fecha_ejecucion = datetime.datetime.now()
-        printlog ("\tTabla--->"+ a[5])
-        Ind_=Indicadores(Id=id, Motor=dbConn.Motor,conn=dbConn_SmartDB)
-        try:
-            for exec_cons in resultado :
-                Dato = [Ind_.Id, Ind_.Motor,Id_Servidor,BDD,fecha_ejecucion]
-                for exec_y in range(Ind_.cant_campos-5):
-                    Dato.append(exec_cons[exec_y])
-                Ind_.insert_tbl(Dato,Ind_.Id)
-            
-                
-        except ValueError as er:
-                printlog (er)
 
 printlog ("Termino .-- ")
