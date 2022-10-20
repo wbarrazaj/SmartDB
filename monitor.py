@@ -23,6 +23,8 @@ consulta_Servidores="select Motor, Id_Servidor, fn_Servidor(ID_Servidor) as Serv
 
 resultado_Servidores=dbConn_SmartDB.ejecutar_query(consulta_Servidores)
 
+
+
 for ListaServer in resultado_Servidores:
     Motor = ListaServer[0]
     Id_Servidor = ListaServer[1]
@@ -39,6 +41,14 @@ for ListaServer in resultado_Servidores:
     dbConn=BaseDD(servidor=Servidor, usuario=Usuario, clave=Clave, db=BDD, puerto=Puerto, drver='', motor=Motor)
 
     printlog('Servidor-------> ' + Servidor)
+
+    dbConn.ejecutar_query('select 1 ;')
+
+    if dbConn.Estado==1:
+        printlog ("Base de Datos Down :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
+    else :
+        printlog ("Base de Datos UP :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
+
 
     for a in resultado_Indicadores :
 
