@@ -44,8 +44,8 @@ for ListaServer in resultado_Servidores:
 
     dbConn.ejecutar_query('select 1 ;')
 
-    if dbConn.Estado==1:
-        printlog ("Base de Datos Down :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
+    if dbConn.Estado==0:
+        printlog ("Base de Datos UP :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
         for a in resultado_Indicadores :
 
             resultado=dbConn.ejecutar_query(a[3])
@@ -64,6 +64,6 @@ for ListaServer in resultado_Servidores:
             except ValueError as er:
                     printlog (er)
     else :
-        printlog ("Base de Datos UP :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
+        printlog ("Base de Datos Down :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
 
 printlog ("Termino .-- ")
