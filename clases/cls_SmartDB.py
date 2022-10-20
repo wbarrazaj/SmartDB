@@ -47,8 +47,11 @@ class Indicadores():
             id_= str(self.Id)
             _consult= "select Id_Indicadores, Motor, Tipo, Descripcion, Consulta, Fecha, Tabla,  Estructura from SmartDB.Tbl_Indicadores where Id_Indicadores =" + id_ + " and Motor ='" + self.Motor + "';"
             resp_ = conn.ejecutar_query(_consult)
-            self.Id, self.Motor, self.Tipo, self.Descripcion, self.Consulta, self.Fecha, self.Tabla , self.Estructura = resp_[0]
-            self.insert=self.genera_sql_insert(self.Tabla)
+            if self.Id == 0:
+                pass
+            else : 
+                self.Id, self.Motor, self.Tipo, self.Descripcion, self.Consulta, self.Fecha, self.Tabla , self.Estructura = resp_[0]
+                self.insert=self.genera_sql_insert(self.Tabla)
         except ValueError as err :
             print(err)
         
@@ -85,7 +88,7 @@ class Indicadores():
         fecha_ejecucion= datetime.datetime.now()
         tabla='tbl_mdb_p000'
         self.Tabla=tabla
-        self.insert= self.__genera_sql_insert(self.Tabla)
+        self.insert= self.genera_sql_insert(self.Tabla)
         self.id=id
         Dato = [self.id, Motor,Servidor,BDD,fecha_ejecucion, estado ]
         self.insert_tbl(Dato, id) 
