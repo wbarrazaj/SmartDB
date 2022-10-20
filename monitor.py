@@ -44,7 +44,7 @@ for ListaServer in resultado_Servidores:
 
     Status=Indicadores(Id=0, Motor=dbConn.Motor,conn=dbConn_SmartDB)
 
-    dbConn.ejecutar_query('select 1 ;')
+    #dbConn.ejecutar_query('select 1 ;')
     
     print(dbConn.Estado)
 
