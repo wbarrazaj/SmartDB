@@ -42,10 +42,13 @@ for ListaServer in resultado_Servidores:
 
     printlog('Servidor-------> ' + Servidor)
 
+    Status=Indicadores(Id=0, Motor=dbConn.Motor,conn=dbConn_SmartDB)
+
     dbConn.ejecutar_query('select 1 ;')
 
     if dbConn.Estado==0:
         printlog ("Base de Datos UP :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
+        Status.insert_tbl_Estado_BDD(0, Motor,Servidor,BDD, 'UP')
         for a in resultado_Indicadores :
 
             resultado=dbConn.ejecutar_query(a[3])
@@ -65,5 +68,6 @@ for ListaServer in resultado_Servidores:
                     printlog (er)
     else :
         printlog ("Base de Datos Down :  Servidor ---> " + dbConn.ServidorDB + " BDD ---> " + dbConn.SchemaDBD )
+        Status.insert_tbl_Estado_BDD(0, Motor,Servidor,BDD, 'DOWN')
 
 printlog ("Termino .-- ")
