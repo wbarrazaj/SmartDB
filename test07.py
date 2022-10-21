@@ -57,3 +57,4 @@ for ListaServer in resultado_Servidores:
 
 printlog ("Termino .-- ")
 
+curl -O -L "https://github.com/grafana/loki/releases/download/v2.6.1/promtail-linux-amd64.zip"
