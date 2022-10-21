@@ -71,6 +71,6 @@ for ListaServer in resultado_Servidores:
         Status.insert_tbl_Estado_BDD(0, Motor,Id_Servidor,BDD, 'DOWN')
         printlog ("\tTabla--->"+ "tbl_mdb_p000")
 
-dbConn.close()
+#dbConn.close()
 dbConn_SmartDB.close()
 printlog ("Termino .-- ")
