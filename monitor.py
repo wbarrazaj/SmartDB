@@ -72,5 +72,5 @@ for ListaServer in resultado_Servidores:
         printlog ("\tTabla--->"+ "tbl_mdb_p000")
 
 #dbConn.close()
-dbConn_SmartDB.close()
+#dbConn_SmartDB.close()
 printlog ("Termino .-- ")
