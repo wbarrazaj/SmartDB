@@ -48,12 +48,12 @@ class Indicadores():
             _consult= "select Id_Indicadores, Motor, Tipo, Descripcion, Consulta, Fecha, Tabla,  Estructura from SmartDB.Tbl_Indicadores where Id_Indicadores =" + id_ + " and Motor ='" + self.Motor + "';"
             resp_ = conn.ejecutar_query(_consult)
             if self.Id == 0:
-                conn.close()
+                #conn.close()
                 pass
             else : 
                 self.Id, self.Motor, self.Tipo, self.Descripcion, self.Consulta, self.Fecha, self.Tabla , self.Estructura = resp_[0]
                 self.insert=self.genera_sql_insert(self.Tabla)
-                conn.close()
+                #conn.close()
         except ValueError as err :
             print(err)
         
@@ -77,7 +77,7 @@ class Indicadores():
 
         self.cant_campos = count 
         ins_txt = 'INSERT INTO ' + tabla + '(' + substr(campos.strip(),0,len(campos.strip())-1) + ') VALUES (' + substr(campos2.strip(),0,len(campos2.strip())-1) + ')'
-        conn.close()
+        #conn.close()
         return ins_txt
 
     def insert_tbl(self, Datos, id ):
@@ -85,7 +85,7 @@ class Indicadores():
         table = self.Tabla
         query = self.insert 
         conn.ejecutar_query_data(query, Datos)
-        conn.close()
+        #conn.close()
 
     def insert_tbl_Estado_BDD (self, id, Motor,Servidor,BDD, estado):
         fecha_ejecucion= datetime.datetime.now()
