@@ -70,8 +70,8 @@ class BaseDD():
                 cursor.execute(query)
                 resultado=cursor.fetchall()
                 #print(">>>>>>>>>>> "+resultado)
-                #conn.commit()
-                #conn.close()
+                conn.commit()
+                conn.close()
             elif self.Motor == 'Postgres':
                 cursor = conn.cursor()
                 cursor.execute(query)
