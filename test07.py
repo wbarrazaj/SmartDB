@@ -2,14 +2,27 @@
 #_*_ coding: utf-8 _*_
 import pyodbc 
 
-conn = pyodbc.connect('Driver={SQL Server};'
-                      'Server=server_name;'
-                      'Database=database_name;'
-                      'Trusted_Connection=yes;')
+Servidor='193.168.1.85'
+Database='Aquiles'
+usuario='sa'
 
-cursor = conn.cursor()
-cursor.execute('SELECT * FROM table_name')
+clave='Emilita01'
 
-for i in cursor:
-    print(i)
-    
+cnxn_str = ("DRIVER={SQL Server};" 
+            "SERVER=193.168.1.85;" 
+            "DATABASE=Aquiles;" 
+            "UID=sa;" 
+            "PWD=Emilita01;")
+cnxn = pyodbc.connect(cnxn_str)
+
+print ('Conexion Exitosa')
+
+#cursor = conn.cursor()
+#cursor.execute('SELECT 1')
+
+#for i in cursor:
+#    print(i)
+
+
+
+
