@@ -15,6 +15,7 @@ cnxn_str = ("DRIVER={SQL Server};"
             "PWD=Emilita01;")
 cnxn = pyodbc.connect(cnxn_str)
 
+
 print ('Conexion Exitosa')
 
 #cursor = conn.cursor()
