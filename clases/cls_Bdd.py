@@ -1,4 +1,4 @@
-import pyodbc 
+#import pyodbc 
 import pymysql
 #import psycopg
 from modulos.funciones import substr,  printlog 
