@@ -1,0 +1,22 @@
+2022-11-10 13:59:44 Inicio .-- 
+2022-11-10 13:59:44 	Tabla--->tbl_redis_p001
+INFO MEMORY
+2022-11-10 13:59:48 	Tabla--->tbl_redis_p001
+INFO SERVER
+2022-11-10 13:59:50 	Tabla--->tbl_redis_p001
+INFO CLIENT
+2022-11-10 13:59:50 	Tabla--->tbl_redis_p001
+INFO PERSISTENCE
+2022-11-10 13:59:51 	Tabla--->tbl_redis_p001
+INFO STATS
+2022-11-10 13:59:55 	Tabla--->tbl_redis_p001
+INFO REPLICATION
+2022-11-10 13:59:55 	Tabla--->tbl_redis_p001
+INFO CPU
+2022-11-10 13:59:56 	Tabla--->tbl_redis_p001
+INFO MODULES
+2022-11-10 13:59:56 	Tabla--->tbl_redis_p001
+INFO CLUSTER
+2022-11-10 13:59:56 	Tabla--->tbl_redis_p001
+INFO KEYSPACE
+2022-11-10 13:59:56 Termino .-- 
