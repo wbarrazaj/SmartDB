@@ -14,6 +14,13 @@ values (
 );
 
 commit;
+insert into Tbl_Servidor 
+(Servidor,IP,SOP,Marca,Procesador,Nucleos,Slot_Memoria,Memoria,Almacenamiento,Modelo,Tipo) 
+values (
+'Aquiles','193.168.1.180','Linux','VM','VM',1,1,'1 GB','100 GB',null,'Virtual'
+);
+
+commit;
 
 -- Carga TBL_BDD
 
