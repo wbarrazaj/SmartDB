@@ -57,6 +57,7 @@ for a in resultado_Indicadores :
         comand_conec_redis.append(xx_comando)
 
 
+
     resultado_redis = subprocess.Popen(comand_conec_redis,text=True,stdout=subprocess.PIPE)
     resultado=[]
     i=0
