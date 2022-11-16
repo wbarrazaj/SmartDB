@@ -80,4 +80,4 @@ for a in resultado_Indicadores :
         #printlog (er)
 
 
-printlog ("Termino .-- ")
+printlog ("Termino .--")
