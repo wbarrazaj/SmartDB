@@ -7,4 +7,7 @@ conn = psycopg2.connect(
     password="Emilita01")
 
 
-print (conn)
+cur = conn.cursor()
+cur.execute('SELECT version()')
+db_version = cur.fetchone()
+print(db_version)
