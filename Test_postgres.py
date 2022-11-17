@@ -5,3 +5,6 @@ conn = psycopg2.connect(
     database="testdb",
     user="monitor",
     password="Emilita01")
+
+
+print (conn)
