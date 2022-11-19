@@ -43,11 +43,11 @@ consulta_Indicadores="select Id_Indicadores, Motor, Tipo, Consulta, Fecha, Tabla
 resultado_Indicadores=dbConn_SmartDB.ejecutar_query(consulta_Indicadores) 
 
 
-
+fecha_ejecucion = datetime.datetime.now()
 for a in resultado_Indicadores :
     comand_conec_redis = [Comando,"-h", Servidor, "--user",Usuario, "--pass",Clave ,"-p" ,str(Puerto)]
     id = a[0] 
-    fecha_ejecucion = datetime.datetime.now()
+    
     printlog ("\tTabla--->"+ a[5])
     Ind_=Indicadores(Id=id, Motor=Motor,conn=dbConn_SmartDB)
     print(Ind_.Consulta)

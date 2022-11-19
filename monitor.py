@@ -47,7 +47,7 @@ for ListaServer in resultado_Servidores:
     dbConn.ejecutar_query('select 1;')
     
     #print(dbConn.Estado)
-
+    fecha_ejecucion = datetime.datetime.now()
     if dbConn.Estado==0:
         printlog ('Base de Datos UP :  Servidor ---> ' + dbConn.ServidorDB )
         Status.insert_tbl_Estado_BDD(0, Motor,Id_Servidor,BDD, 'UP')
@@ -55,7 +55,7 @@ for ListaServer in resultado_Servidores:
         for a in resultado_Indicadores :
             resultado=dbConn.ejecutar_query(a[3])
             id = a[0] 
-            fecha_ejecucion = datetime.datetime.now()
+            
             printlog ("\tTabla--->"+ a[5])
             Ind_=Indicadores(Id=id, Motor=dbConn.Motor,conn=dbConn_SmartDB)
             try:
